@@ -1,5 +1,5 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Email } from "@/domain/enterprise/entities/email";
+import { Email } from "@/domain/enterprise/entities/post";
 import { Prisma, Email as PrismaEmail } from "@prisma/client";
 
 export class PrismaEmailMapper {

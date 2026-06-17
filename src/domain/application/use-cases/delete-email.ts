@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
-import { EmailsRepository } from '../repositories/emails-repository'
+import { EmailsRepository } from '../repositories/posts-repository'
 import { Injectable } from '@nestjs/common'
 
 interface DeleteEmailUseCaseRequest {

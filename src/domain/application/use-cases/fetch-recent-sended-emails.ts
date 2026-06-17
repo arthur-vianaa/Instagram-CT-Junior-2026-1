@@ -1,5 +1,5 @@
 import { Either, right } from '@/core/either'
-import { EmailsRepository } from '../repositories/emails-repository'
+import { EmailsRepository } from '../repositories/posts-repository'
 import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names'
 import { Injectable } from '@nestjs/common'
 

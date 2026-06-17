@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: nest-api-instagram-ct
-    image: postgres
+    image: bitnami/postgresql:latest
     ports:
       - 5432:5432
     environment:

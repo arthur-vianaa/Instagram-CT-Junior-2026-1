@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { PrismaService } from "./prisma/prisma.service";
 import { PrismaUsersRepository } from "./prisma/repositories/prisma-users-repository";
-import { PrismaEmailsRepository } from "./prisma/repositories/prisma-emails-repository";
+import { PrismaEmailsRepository } from "./prisma/repositories/prisma-posts-repository";
 import { UsersRepository } from "@/domain/application/repositories/users-repository";
-import { EmailsRepository } from "@/domain/application/repositories/emails-repository";
+import { EmailsRepository } from "@/domain/application/repositories/posts-repository";
 
 @Module({
   providers: [

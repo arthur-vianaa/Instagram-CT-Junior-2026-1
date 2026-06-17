@@ -1,5 +1,5 @@
-import { EmailsRepository } from "@/domain/application/repositories/emails-repository";
-import { Email } from "@/domain/enterprise/entities/email";
+import { PostsRepository } from "@/domain/application/repositories/posts-repository";
+import { Email } from "@/domain/enterprise/entities/post";
 import { Injectable } from "@nestjs/common";
 import { PrismaEmailMapper } from "../mappers/prisma-email-mapper";
 import { PrismaService } from "../prisma.service";

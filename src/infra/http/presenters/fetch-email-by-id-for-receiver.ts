@@ -1,4 +1,4 @@
-import { Email } from "@/domain/enterprise/entities/email";
+import { Email } from "@/domain/enterprise/entities/post";
 import { EmailWithSenderReceiverNames } from "@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names";
 import { Injectable } from "@nestjs/common";
 

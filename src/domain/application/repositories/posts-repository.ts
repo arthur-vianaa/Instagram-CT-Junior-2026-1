@@ -1,4 +1,4 @@
-import { Email } from '@/domain/enterprise/entities/email'
+import { Post } from '@/domain/enterprise/entities/post'
 import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names';
 
 export abstract class EmailsRepository {

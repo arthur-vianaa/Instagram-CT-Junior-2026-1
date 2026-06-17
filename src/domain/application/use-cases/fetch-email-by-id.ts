@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either'
-import { Email } from '@/domain/enterprise/entities/email'
-import { EmailsRepository } from '../repositories/emails-repository'
+import { Email } from '@/domain/enterprise/entities/post'
+import { EmailsRepository } from '../repositories/posts-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { Injectable } from '@nestjs/common'
