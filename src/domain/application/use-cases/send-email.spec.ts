@@ -1,4 +1,4 @@
-import { InMemoryEmailsRepository } from 'test/repositories/in-memory-emails-repository'
+import { InMemoryEmailsRepository } from 'test/repositories/in-memory-posts-repository'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
 import { SendEmailUseCase } from './send-email'
 import { makeUser } from 'test/factories/make-user'

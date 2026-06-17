@@ -1,12 +1,11 @@
 import { Post } from '@/domain/enterprise/entities/post'
-import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names';
+import { PostWithAuthor } from '@/domain/enterprise/entities/value-objects/post-with-author-props';
 
-export abstract class EmailsRepository {
-  abstract findById(id: string): Promise<Email | null>
-  abstract findDetailsById(id: string): Promise<EmailWithSenderReceiverNames | null>
-  abstract findManyByReceiverId(receiverId: string): Promise<EmailWithSenderReceiverNames[]>
-  abstract findManyBySenderId(senderId: string): Promise<EmailWithSenderReceiverNames[]>
-  abstract create(email: Email): Promise<void>
-  abstract save(email: Email): Promise<void>
-  abstract delete(email: Email): Promise<void>
+export abstract class PostsRepository {
+  abstract findById(id: string): Promise<Post | null>
+  abstract findDetailsById(id: string): Promise<PostWithAuthor | null>
+  abstract save(post: Post): Promise<void>
+  abstract findManyByAuthorId(authorId: string): Promise<PostWithAuthor[]> 
+  abstract create(post: Post): Promise<void>
+  abstract delete(post: Post): Promise<void>
 }

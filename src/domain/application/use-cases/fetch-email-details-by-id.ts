@@ -3,7 +3,7 @@ import { EmailsRepository } from '../repositories/posts-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { Injectable } from '@nestjs/common'
-import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names'
+import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/post-with-author-props'
 
 interface FetchEmailByIdUseCaseRequest {
   userId: string

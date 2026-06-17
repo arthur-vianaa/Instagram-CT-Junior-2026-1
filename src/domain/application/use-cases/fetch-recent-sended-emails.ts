@@ -1,6 +1,6 @@
 import { Either, right } from '@/core/either'
 import { EmailsRepository } from '../repositories/posts-repository'
-import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/email-with-sender-receiver-names'
+import { EmailWithSenderReceiverNames } from '@/domain/enterprise/entities/value-objects/post-with-author-props'
 import { Injectable } from '@nestjs/common'
 
 interface FetchRecentSendedEmailsUseCaseRequest {

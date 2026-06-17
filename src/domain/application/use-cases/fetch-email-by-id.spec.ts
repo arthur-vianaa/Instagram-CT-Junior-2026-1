@@ -3,7 +3,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { FetchEmailByIdUseCase } from './fetch-email-by-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { InMemoryEmailsRepository } from 'test/repositories/in-memory-emails-repository'
+import { InMemoryEmailsRepository } from 'test/repositories/in-memory-posts-repository'
 
 let inMemoryUserRepository: InMemoryUsersRepository
 let inMemoryEmailsRepository: InMemoryEmailsRepository

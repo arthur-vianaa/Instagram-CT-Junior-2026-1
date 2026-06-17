@@ -2,56 +2,50 @@ import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/entities/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
-export interface EmailProps {
-  title: string
-  createdAt: Date
+export interface PostProps {
+  data: Date       
   content: string
-  isSeen: boolean
-  senderId: UniqueEntityID
-  receiverId: UniqueEntityID
+  authorID: UniqueEntityID
+  description?: string
+  fotoLink: string
 }
 
-export class Email extends Entity<EmailProps> {
-  get title() {
-    return this.props.title
-  }
-
-  get createdAt() {
-    return this.props.createdAt
+export class Post extends Entity<PostProps> {
+  get data() {
+    return this.props.data
   }
 
   get content() {
     return this.props.content
   }
 
-  get isSeen() {
-    return this.props.isSeen
+  get authorID() {
+    return this.props.authorID
   }
 
-  set isSeen(isSeen: boolean) {
-    this.props.isSeen = isSeen
+  get fotoLink() {
+    return this.props.fotoLink
   }
 
-  get senderId() {
-    return this.props.senderId
+  get description() {
+    return this.props.description
   }
 
-  get receiverId() {
-    return this.props.receiverId
+  get id() {
+    return super.id 
   }
 
   static create(
-    props: Optional<EmailProps, 'createdAt' | 'isSeen'>,
+    props: Optional<PostProps, 'data'>,
     id?: UniqueEntityID
   ) {
-    const email = new Email(
+    const post = new Post(
       {
         ...props,
-        createdAt: props.createdAt ?? new Date(),
-        isSeen: false,
+        data: props.data ?? new Date(),
       },
       id
     )
-    return email
+    return post
   }
 }

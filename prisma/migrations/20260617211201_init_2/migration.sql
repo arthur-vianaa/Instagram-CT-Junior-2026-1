@@ -13,8 +13,9 @@ CREATE TABLE "users" (
 CREATE TABLE "posts" (
     "id" TEXT NOT NULL,
     "data" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "sender_id" TEXT NOT NULL,
+    "fotoLink" TEXT NOT NULL,
 
     CONSTRAINT "posts_pkey" PRIMARY KEY ("id")
 );

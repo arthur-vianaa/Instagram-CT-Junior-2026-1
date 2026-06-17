@@ -27,10 +27,11 @@ model User {
 model Post {
   id          String   @id @default(uuid())
   data        DateTime @default(now())
-  description String
-  userID      String   @map("sender_id")
+  description String?
+  authorID    String   @map("sender_id")
+  fotoLink    String
 
-  poster User @relation("UsersPosts", fields: [userID], references: [id])
+  author User @relation("UsersPosts", fields: [authorID], references: [id])
 
   @@map("posts")
 }

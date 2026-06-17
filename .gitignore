@@ -62,3 +62,4 @@ data
 
 #JWT
 *.key
+codigo-RS256-jwt

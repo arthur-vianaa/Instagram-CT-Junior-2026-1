@@ -1,4 +1,4 @@
-import { InMemoryEmailsRepository } from 'test/repositories/in-memory-emails-repository'
+import { InMemoryEmailsRepository } from 'test/repositories/in-memory-posts-repository'
 import { FetchRecentReceivedEmailsUseCase } from './fetch-recent-received-emails'
 import { makeEmail } from 'test/factories/make-email'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
