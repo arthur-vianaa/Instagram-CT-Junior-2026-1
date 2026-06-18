@@ -33,9 +33,8 @@ export class InMemoryPostsRepository implements PostsRepository {
 
     return PostWithAuthor.create({
       data: post.data,
-      content: post.content,
       authorID: post.authorID,
-      description: post.description,
+      description: post.description ?? undefined,
       fotoLink: post.fotoLink,
       authorName: author.name,
       authorProfilePicture: author.profileImage ?? ''
@@ -80,9 +79,8 @@ export class InMemoryPostsRepository implements PostsRepository {
 
     return PostWithAuthor.create({
       data: post.data,
-      content: post.content,
       authorID: post.authorID,
-      description: post.description,
+      description: post.description ?? undefined,
       fotoLink: post.fotoLink,
       authorName: author.name,
       authorProfilePicture: author.profileImage ?? ''

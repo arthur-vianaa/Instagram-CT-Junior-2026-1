@@ -1,7 +1,7 @@
 import { PostsRepository } from "@/domain/application/repositories/posts-repository";
 import { Post } from "@/domain/enterprise/entities/post";
 import { Injectable } from "@nestjs/common";
-import { PrismaEmailMapper } from "../mappers/prisma-email-mapper";
+import { PrismaPostMapper } from "../mappers/prisma-post-mapper";
 import { PrismaService } from "../prisma.service";
 import { PostWithAuthor } from "@/domain/enterprise/entities/value-objects/post-with-author-props";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
@@ -21,7 +21,7 @@ export class PrismaPostsRepository implements PostsRepository {
       return null
     }
 
-    return PrismaEmailMapper.toDomain(post)
+    return PrismaPostMapper.toDomain(post)
   }
 
   async findDetailsById(id: string): Promise<PostWithAuthor | null> {
@@ -36,84 +36,59 @@ export class PrismaPostsRepository implements PostsRepository {
 
     return PostWithAuthor.create({
       data: post.data,
-      content: post.content,
-      authorID: post.authorID,
-      description: post.description,
+      description: post.description ?? undefined,
+      authorID: new UniqueEntityID(post.author
+      .id),
       fotoLink: post.fotoLink,
-      authorName: author.name,
-      authorProfilePicture: author.profileImage ?? ''
-      },
-      post.id
+      authorName: post.author.name,
+      authorProfilePicture: post.author.profileImage ?? ''
+    },
+    new UniqueEntityID(post.id) 
     )
   }
 
-  async findManyByReceiverId(receiverId: string): Promise<PostWithAuthor[]> {
-    const emails = await this.prisma.email.findMany({
-      where: { receiverId },
-      include: { sender: true, receiver: true },
+  async findManyByAuthorId(authorID: string): Promise<PostWithAuthor[]> {
+    const posts = await this.prisma.post.findMany({
+      where: { authorID: authorID },
+      include: { author: true },
       orderBy: { data: 'desc' },
     })
 
-    return emails.map((email) => PostWithAuthor.create({
-      emailId: new UniqueEntityID(email.id),
-      title: email.title,
-      content: email.content,
-      createdAt: email.data,
-      isSeen: email.isSeen,
-      senderId: new UniqueEntityID(email.senderId),
-      senderName: email.sender.name,
-      senderEmail: email.sender.email,
-      receiverId: new UniqueEntityID(email.receiverId),
-      receiverName: email.receiver.name,
-      receiverEmail: email.receiver.email,
-    }))
+    return posts.map((post) => PostWithAuthor.create({
+      data: post.data,
+      description: post.description ?? undefined,
+      authorID: new UniqueEntityID(post.author.id),
+      fotoLink: post.fotoLink,
+      authorName: post.author.name,
+      authorProfilePicture: post.author.profileImage ?? ''
+    },
+    new UniqueEntityID(post.id)  
+    ))
   }
 
-  async findManyBySenderId(senderId: string): Promise<PostWithAuthor[]> {
-    const emails = await this.prisma.email.findMany({
-      where: { senderId },
-      include: { sender: true, receiver: true },
-      orderBy: { data: 'desc' },
-    })
+  async create(post: Post): Promise<void> {
+    const data = PrismaPostMapper.toPrisma(post)
 
-    return emails.map((email) => PostWithAuthor.create({
-      emailId: new UniqueEntityID(email.id),
-      title: email.title,
-      content: email.content,
-      createdAt: email.data,
-      isSeen: email.isSeen,
-      senderId: new UniqueEntityID(email.senderId),
-      senderName: email.sender.name,
-      senderEmail: email.sender.email,
-      receiverId: new UniqueEntityID(email.receiverId),
-      receiverName: email.receiver.name,
-      receiverEmail: email.receiver.email,
-    }))
-  }
-
-  async create(email: Email): Promise<void> {
-    const data = PrismaEmailMapper.toPrisma(email)
-
-    await this.prisma.email.create({
+    await this.prisma.post.create({
       data,
     })
   }
 
-  async save(email: Email): Promise<void> {
-    const data = PrismaEmailMapper.toPrisma(email)
+  async save(post: Post): Promise<void> {
+    const data = PrismaPostMapper.toPrisma(post)
 
-    await this.prisma.email.update({
+    await this.prisma.post.update({
       where: {
-        id: email.id.toString(),
+        id: post.id.toString(),
       },
       data,
     })
   }
 
-  async delete(email: Email): Promise<void> {
-    const data = PrismaEmailMapper.toPrisma(email)
+  async delete(post: Post): Promise<void> {
+    const data = PrismaPostMapper.toPrisma(post)
 
-    await this.prisma.email.delete({
+    await this.prisma.post.delete({
       where: {
         id: data.id,
       }
