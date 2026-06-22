@@ -2,7 +2,7 @@ import { FetchRecentReceivedEmailsUseCase } from "@/domain/application/use-cases
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { Controller, Get, HttpCode } from "@nestjs/common";
-import { EmailDetailsPresenterForReceiver } from "../presenters/email-presenter-for-receiver";
+import { EmailDetailsPresenterForReceiver } from "../presenters/post-presenter-for-receiver";
 
 @Controller('/my-emails')
 export class FetchRecenteReceivedEmailsController {

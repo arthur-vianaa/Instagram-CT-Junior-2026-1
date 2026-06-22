@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { PrismaService } from "./prisma/prisma.service";
 import { PrismaUsersRepository } from "./prisma/repositories/prisma-users-repository";
-import { PrismaEmailsRepository } from "./prisma/repositories/prisma-posts-repository";
+import { PrismaPostsRepository } from "./prisma/repositories/prisma-posts-repository";
 import { UsersRepository } from "@/domain/application/repositories/users-repository";
-import { EmailsRepository } from "@/domain/application/repositories/posts-repository";
+import { PostsRepository } from "@/domain/application/repositories/posts-repository";
 
 @Module({
   providers: [
@@ -13,14 +13,14 @@ import { EmailsRepository } from "@/domain/application/repositories/posts-reposi
       useClass: PrismaUsersRepository,
     },
     {
-      provide: EmailsRepository,
-      useClass: PrismaEmailsRepository,
+      provide: PostsRepository,
+      useClass: PrismaPostsRepository,
     },
   ],
   exports: [
     PrismaService,
     UsersRepository,
-    EmailsRepository,
+    PostsRepository,
   ],
 })
 export class DataBaseModule { }

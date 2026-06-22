@@ -1,5 +1,5 @@
 import { DeleteEmailUseCase } from './delete-email'
-import { makeEmail } from 'test/factories/make-email'
+import { makeEmail } from 'test/factories/make-post'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'

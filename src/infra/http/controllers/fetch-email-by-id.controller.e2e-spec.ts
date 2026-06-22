@@ -2,7 +2,7 @@ import { AppModule } from "@/infra/app.module"
 import { DataBaseModule } from "@/infra/database/database.module"
 import { INestApplication } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
-import { EmailFactory } from "test/factories/make-email"
+import { EmailFactory } from "test/factories/make-post"
 import { UserFactory } from "test/factories/make-user"
 import request from 'supertest'
 import { Test } from "@nestjs/testing"

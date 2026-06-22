@@ -1,4 +1,4 @@
-import { makeEmail } from 'test/factories/make-email'
+import { makeEmail } from 'test/factories/make-post'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { FetchEmailByIdUseCase } from './fetch-email-by-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'

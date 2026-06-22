@@ -5,7 +5,7 @@ import { INestApplication } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { Test } from "@nestjs/testing"
 import request from 'supertest'
-import { EmailFactory } from "test/factories/make-email"
+import { EmailFactory } from "test/factories/make-post"
 import { UserFactory } from "test/factories/make-user"
 
 describe('Delete Email (E2E)', () => {
