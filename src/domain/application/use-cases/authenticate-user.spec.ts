@@ -30,7 +30,7 @@ describe('Authenticate User', () => {
       password: await fakeHasher.hash('123456'),
     })
 
-    inMemoryUsersRepository.items.push(user)
+    await inMemoryUsersRepository.create(user)
 
     const result = await sut.execute({
       email: 'fernandopessoa@example.com',
@@ -49,11 +49,28 @@ describe('Authenticate User', () => {
       password: await fakeHasher.hash('123456'),
     })
 
-    inMemoryUsersRepository.items.push(user)
+    await inMemoryUsersRepository.create(user)
 
     const result = await sut.execute({
       email: 'fernandopessoa@example.com',
       password: '123457',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(WrongCredentialsError)
+  })
+
+    it('should not be able to authenticate with a non-existing email', async () => {
+    const user = makeUser({
+      email: 'fernandopessoa@example.com',
+      password: await fakeHasher.hash('123456'),
+    })
+
+    await inMemoryUsersRepository.create(user)
+
+    const result = await sut.execute({
+      email: 'emailerrado@example.com',
+      password: '123456',
     })
 
     expect(result.isLeft()).toBe(true)

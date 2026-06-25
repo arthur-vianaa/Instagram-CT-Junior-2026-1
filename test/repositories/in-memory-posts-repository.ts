@@ -43,6 +43,13 @@ export class InMemoryPostsRepository implements PostsRepository {
     )
   }
 
+  async findManyRecent(): Promise<PostWithAuthor[]> {
+    const Posts = this.items
+      .sort((a, b) => b.data.getTime() - a.data.getTime())
+
+    return this.mapPostsToDetails(Posts)
+  }
+
   async findManyByAuthorId(authorID: string): Promise<PostWithAuthor[]> {
     const Posts = this.items
       .filter((item) => item.authorID.toString() === authorID)

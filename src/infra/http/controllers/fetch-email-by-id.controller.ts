@@ -1,6 +1,6 @@
 import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
 import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/resource-not-found-error";
-import { FetchEmailByIdUseCase } from "@/domain/application/use-cases/fetch-email-by-id";
+import { FetchEmailByIdUseCase } from "@/domain/application/use-cases/fetch-all-recent-posts";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { BadRequestException, Controller, Get, NotFoundException, Param, UnauthorizedException } from "@nestjs/common";

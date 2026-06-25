@@ -1,6 +1,7 @@
 import { FakeHasher } from 'test/cryptography/fake-hasher'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
 import { RegisterUserUseCase } from './register-user'
+import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let fakeHasher: FakeHasher
@@ -26,6 +27,40 @@ describe('Register User', () => {
     expect(result.value).toEqual({
       user: inMemoryUsersRepository.items[0],
     })
+  })
+
+  it('should not be able to register a user with an existing email', async () => {
+    const user1 = await sut.execute({
+      name: 'Fernando Pessoa',
+      email: 'fernandopessoa@example.com',
+      password: '123456',
+    })
+
+    const result = await sut.execute({
+      name: 'Fernando Pessoa 2',
+      email: 'fernandopessoa@example.com',
+      password: '123456',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(UserAlreadyExistsError)
+  })
+
+  it('should not be able to register a user with an existing username', async () => {
+    const user1 = await sut.execute({
+      name: 'Fernando Pessoa',
+      email: 'fernandopessoa@example.com',
+      password: '123456',
+    })
+
+    const result = await sut.execute({
+      name: 'Fernando Pessoa',
+      email: 'fernandopessoa2@example.com',
+      password: '123456',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(UserAlreadyExistsError)
   })
 
   it('should hash user password upon registration', async () => {

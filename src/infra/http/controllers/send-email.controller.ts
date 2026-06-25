@@ -1,7 +1,7 @@
 import z from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
 import { BadRequestException, Body, Controller, HttpCode, NotFoundException, Post, UnauthorizedException } from "@nestjs/common";
-import { SendEmailUseCase } from "@/domain/application/use-cases/send-email";
+import { SendEmailUseCase } from "@/domain/application/use-cases/post-post";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/resource-not-found-error";

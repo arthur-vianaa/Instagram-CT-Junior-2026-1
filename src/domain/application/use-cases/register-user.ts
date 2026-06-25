@@ -38,6 +38,12 @@ export class RegisterUserUseCase {
       return left(new UserAlreadyExistsError(email))
     }
 
+    const userWithSameUsername = await this.usersRepository.findByUsername(name)
+
+    if (userWithSameUsername) {
+      return left(new UserAlreadyExistsError(name))
+    }
+
     const hashedPassword = await this.hashGenerator.hash(password)
 
     const user = User.create({

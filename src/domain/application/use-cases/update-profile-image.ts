@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either'
 import { User } from '@/domain/enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
-import { WrongCredentialsError } from './errors/wrong-credentials-error'
 import { Injectable } from '@nestjs/common'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface UpdateProfileImageUseCaseRequest {
   userId: string
@@ -10,7 +10,7 @@ interface UpdateProfileImageUseCaseRequest {
 }
 
 type UpdateProfileImageUseCaseResponse = Either<
-  WrongCredentialsError,
+  ResourceNotFoundError,
   {
     user: User
   }
@@ -27,7 +27,7 @@ export class UpdateProfileImageUseCase {
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      return left(new WrongCredentialsError())
+      return left(new ResourceNotFoundError())
     }
 
     user.profileImage = profileImage

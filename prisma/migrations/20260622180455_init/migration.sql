@@ -14,14 +14,17 @@ CREATE TABLE "posts" (
     "id" TEXT NOT NULL,
     "data" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "description" TEXT,
-    "sender_id" TEXT NOT NULL,
+    "author_id" TEXT NOT NULL,
     "fotoLink" TEXT NOT NULL,
 
     CONSTRAINT "posts_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "users_name_key" ON "users"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
-ALTER TABLE "posts" ADD CONSTRAINT "posts_sender_id_fkey" FOREIGN KEY ("sender_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "posts" ADD CONSTRAINT "posts_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

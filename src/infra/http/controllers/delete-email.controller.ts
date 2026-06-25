@@ -1,5 +1,5 @@
 import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { DeleteEmailUseCase } from "@/domain/application/use-cases/delete-email";
+import { DeleteEmailUseCase } from "@/domain/application/use-cases/delete-post";
 import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/resource-not-found-error";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";

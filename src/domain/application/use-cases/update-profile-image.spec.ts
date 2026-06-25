@@ -2,6 +2,7 @@ import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repos
 import { UpdateProfileImageUseCase } from './update-profile-image'
 import { makeUser } from 'test/factories/make-user'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: UpdateProfileImageUseCase
@@ -31,7 +32,7 @@ describe('Update Profile Image', () => {
     expect(inMemoryUsersRepository.items[0].profileImage).toEqual('google.com')
   })
 
-  it('should not be able to update another user profile image', async () => {
+  it('should not be able to update a non-existing users profile image', async () => {
     await inMemoryUsersRepository.create(
       makeUser(
         {
@@ -47,6 +48,7 @@ describe('Update Profile Image', () => {
     })
 
     expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError)
     expect(inMemoryUsersRepository.items[0].profileImage).toEqual('sem foto')
   })
 })
