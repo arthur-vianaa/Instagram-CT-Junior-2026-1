@@ -7,7 +7,7 @@ export class PrismaPostMapper {
     return Post.create(
       {
         data: raw.data,
-        authorID: new UniqueEntityID(raw.authorID), 
+        authorId: new UniqueEntityID(raw.authorId), 
         description: raw.description,
         fotoLink: raw.fotoLink,
       }, 
@@ -20,7 +20,7 @@ export class PrismaPostMapper {
       id: post.id.toString(),
       data: post.data,
       description: post.description || null, 
-      authorID: post.authorID.toString(),
+      authorId: post.authorId.toString(),
       fotoLink: post.fotoLink,
     }
   }

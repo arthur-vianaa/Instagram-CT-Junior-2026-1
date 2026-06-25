@@ -28,7 +28,7 @@ describe('Create a Post', () => {
     const result = await sut.execute({
       description: 'Eu amo a CT Junior',
       fotoLink: 'fotolindapretaelarnja.jpeg',
-      authorID: author.id.toString(),
+      authorId: author.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)
@@ -42,7 +42,7 @@ describe('Create a Post', () => {
     const result = await sut.execute({
       description: 'Eu odeio a CT Junior',
       fotoLink: 'fotolindapretaelarnja.jpeg',
-      authorID: new UniqueEntityID().toString(),
+      authorId: new UniqueEntityID().toString(),
     })
 
     expect(result.isLeft()).toBe(true)

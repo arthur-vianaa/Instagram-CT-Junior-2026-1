@@ -37,7 +37,7 @@ export class PrismaPostsRepository implements PostsRepository {
     return PostWithAuthor.create({
       data: post.data,
       description: post.description ?? undefined,
-      authorID: new UniqueEntityID(post.author
+      authorId: new UniqueEntityID(post.author
       .id),
       fotoLink: post.fotoLink,
       authorName: post.author.name,
@@ -56,7 +56,7 @@ export class PrismaPostsRepository implements PostsRepository {
     return posts.map((post) => PostWithAuthor.create({
       data: post.data,
       description: post.description ?? undefined,
-      authorID: new UniqueEntityID(post.author.id),
+      authorId: new UniqueEntityID(post.author.id),
       fotoLink: post.fotoLink,
       authorName: post.author.name,
       authorProfilePicture: post.author.profileImage ?? ''
@@ -65,9 +65,9 @@ export class PrismaPostsRepository implements PostsRepository {
     ))
   }
 
-  async findManyByAuthorId(authorID: string): Promise<PostWithAuthor[]> {
+  async findManyByAuthorId(authorId: string): Promise<PostWithAuthor[]> {
     const posts = await this.prisma.post.findMany({
-      where: { authorID: authorID },
+      where: { authorId: authorId },
       include: { author: true },
       orderBy: { data: 'desc' },
     })
@@ -75,7 +75,7 @@ export class PrismaPostsRepository implements PostsRepository {
     return posts.map((post) => PostWithAuthor.create({
       data: post.data,
       description: post.description ?? undefined,
-      authorID: new UniqueEntityID(post.author.id),
+      authorId: new UniqueEntityID(post.author.id),
       fotoLink: post.fotoLink,
       authorName: post.author.name,
       authorProfilePicture: post.author.profileImage ?? ''

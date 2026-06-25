@@ -13,7 +13,7 @@ export function makePost(
     {
       description: faker.lorem.sentence(),
       fotoLink: faker.lorem.text(),
-      authorID: new UniqueEntityID(),
+      authorId: new UniqueEntityID(),
       ...override,
     },
     id

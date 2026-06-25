@@ -3,7 +3,7 @@ import { Entity } from "@/core/entities/entity";
 
 export interface PostWithAuthorProps {
   data: Date       
-  authorID: UniqueEntityID
+  authorId: UniqueEntityID
   description?: string
   fotoLink: string
   authorName: string    
@@ -15,8 +15,8 @@ export class PostWithAuthor extends Entity<PostWithAuthorProps> {
     return this.props.data
   }
 
-  get authorID() {
-    return this.props.authorID
+  get authorId() {
+    return this.props.authorId
   }
 
   get fotoLink() {

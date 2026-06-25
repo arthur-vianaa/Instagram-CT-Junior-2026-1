@@ -7,7 +7,7 @@ import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface PostPostUseCaseRequest {
-  authorID: string
+  authorId: string
   description: string
   fotoLink: string
 }
@@ -27,18 +27,18 @@ export class PostPostUseCase {
   ) { }
 
   async execute({
-    authorID,
+    authorId,
     description,
     fotoLink,
   }: PostPostUseCaseRequest): Promise<PostPostUseCaseResponse> {
-    const authorExists = await this.usersRepository.findById(authorID.toString())
+    const authorExists = await this.usersRepository.findById(authorId.toString())
 
     if (!authorExists) {
       return left(new NotAllowedError())
     }
 
     const post = Post.create({
-      authorID: new UniqueEntityID(authorID),
+      authorId: new UniqueEntityID(authorId),
       description,
       fotoLink,
       data: new Date(),

@@ -23,7 +23,7 @@ describe('Fetch users own posts', () => {
 
     await inMemoryPostsRepository.create(
       makePost({
-          authorID: author.id
+          authorId: author.id
       })
     )
 
@@ -44,7 +44,7 @@ describe('Fetch users own posts', () => {
     await inMemoryPostsRepository.create(
       makePost({
           description: 'Ola Mundo!',
-          authorID: author.id,
+          authorId: author.id,
           data: new Date(2026, 5, 20)
       })
     )
@@ -52,7 +52,7 @@ describe('Fetch users own posts', () => {
     await inMemoryPostsRepository.create(
       makePost({
           description: 'Eu amo demais a CT',
-          authorID: author.id,
+          authorId: author.id,
           data: new Date(2026, 5, 21)
       })
     )

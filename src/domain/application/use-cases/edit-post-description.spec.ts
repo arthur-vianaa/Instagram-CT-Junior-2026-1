@@ -32,7 +32,7 @@ describe('Edit Post Description', () => {
     const post = (
         makePost(
             {
-                authorID: user.id,
+                authorId: user.id,
             }
         )
     )
@@ -55,7 +55,7 @@ describe('Edit Post Description', () => {
     const post = (
         makePost(
             {
-                authorID: userID
+                authorId: userID
             }
         )
     )
@@ -94,7 +94,7 @@ describe('Edit Post Description', () => {
     const post = (
         makePost(
             {
-                authorID: postOwner.id,
+                authorId: postOwner.id,
             }
         )
     )

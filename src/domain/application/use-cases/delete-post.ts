@@ -28,7 +28,7 @@ export class DeletePostUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    if (post.authorID.toString() !== authorId) {
+    if (post.authorId.toString() !== authorId) {
       return left(new NotAllowedError())
     }
 

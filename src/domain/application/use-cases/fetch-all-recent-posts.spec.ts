@@ -23,7 +23,7 @@ describe('Fetch all recent posts', () => {
 
     await inMemoryPostsRepository.create(
       makePost({
-          authorID: author.id
+          authorId: author.id
       })
     )
 
@@ -44,7 +44,7 @@ describe('Fetch all recent posts', () => {
     await inMemoryPostsRepository.create(
       makePost({
           description: 'Ola Mundo!',
-          authorID: author1.id,
+          authorId: author1.id,
           data: new Date(2026, 5, 20)
       })
     )
@@ -52,7 +52,7 @@ describe('Fetch all recent posts', () => {
     await inMemoryPostsRepository.create(
       makePost({
           description: 'Eu amo demais a CT',
-          authorID: author2.id,
+          authorId: author2.id,
           data: new Date(2026, 5, 21)
       })
     )
@@ -60,7 +60,7 @@ describe('Fetch all recent posts', () => {
     await inMemoryPostsRepository.create(
       makePost({
           description: 'Backend e melhor que front',
-          authorID: author1.id,
+          authorId: author1.id,
           data: new Date(2026, 5, 19)
       })
     )

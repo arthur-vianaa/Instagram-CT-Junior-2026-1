@@ -25,7 +25,7 @@ export class InMemoryPostsRepository implements PostsRepository {
       return null
     }
 
-    const author = this.usersRepository.items.find((user) => user.id.equals(post.authorID))
+    const author = this.usersRepository.items.find((user) => user.id.equals(post.authorId))
 
     if (!author) {
       throw new Error('User not found in memory repository during mapping.')
@@ -33,7 +33,7 @@ export class InMemoryPostsRepository implements PostsRepository {
 
     return PostWithAuthor.create({
       data: post.data,
-      authorID: post.authorID,
+      authorId: post.authorId,
       description: post.description ?? undefined,
       fotoLink: post.fotoLink,
       authorName: author.name,
@@ -50,9 +50,9 @@ export class InMemoryPostsRepository implements PostsRepository {
     return this.mapPostsToDetails(Posts)
   }
 
-  async findManyByAuthorId(authorID: string): Promise<PostWithAuthor[]> {
+  async findManyByAuthorId(authorId: string): Promise<PostWithAuthor[]> {
     const Posts = this.items
-      .filter((item) => item.authorID.toString() === authorID)
+      .filter((item) => item.authorId.toString() === authorId)
       .sort((a, b) => b.data.getTime() - a.data.getTime())
 
     return this.mapPostsToDetails(Posts)
@@ -78,7 +78,7 @@ export class InMemoryPostsRepository implements PostsRepository {
 
   private mapPostsToDetails(Posts: Post[]): PostWithAuthor[] {
     return Posts.map((post) => {
-      const author = this.usersRepository.items.find((user) => user.id.equals(post.authorID))
+      const author = this.usersRepository.items.find((user) => user.id.equals(post.authorId))
 
       if (!author) {
         throw new Error('User not found in memory repository during mapping.')
@@ -86,7 +86,7 @@ export class InMemoryPostsRepository implements PostsRepository {
 
     return PostWithAuthor.create({
       data: post.data,
-      authorID: post.authorID,
+      authorId: post.authorId,
       description: post.description ?? undefined,
       fotoLink: post.fotoLink,
       authorName: author.name,

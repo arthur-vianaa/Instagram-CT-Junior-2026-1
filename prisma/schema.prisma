@@ -28,10 +28,10 @@ model Post {
   id          String   @id @default(uuid())
   data        DateTime @default(now())
   description String?
-  authorID    String   @map("author_id")
+  authorId    String   @map("author_id")
   fotoLink    String
 
-  author User @relation("UsersPosts", fields: [authorID], references: [id])
+  author User @relation("UsersPosts", fields: [authorId], references: [id])
 
   @@map("posts")
 }

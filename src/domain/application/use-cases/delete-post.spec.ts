@@ -21,7 +21,7 @@ describe('Delete Post', () => {
     await inMemoryPostsRepository.create(
       makePost(
         {
-          authorID: new UniqueEntityID('123456'),
+          authorId: new UniqueEntityID('123456'),
         },
         new UniqueEntityID('post-01')
       )
@@ -39,7 +39,7 @@ describe('Delete Post', () => {
     await inMemoryPostsRepository.create(
       makePost(
         {
-          authorID: new UniqueEntityID('123456'),
+          authorId: new UniqueEntityID('123456'),
         },
         new UniqueEntityID('post-01')
       )
