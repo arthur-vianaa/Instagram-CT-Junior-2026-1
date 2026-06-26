@@ -6,11 +6,6 @@ import { AuthenticateUserUseCase } from "@/domain/application/use-cases/authenti
 import { WrongCredentialsError } from "@/domain/application/use-cases/errors/wrong-credentials-error";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-class AuthenticateBodyDto {
-  email!: string
-  senha!: string
-}
-
 const authenticateBodySchema = z.object({
   email: z.email(),
   senha: z.string(),
@@ -18,7 +13,7 @@ const authenticateBodySchema = z.object({
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
-@ApiTags('Autenticação')
+@ApiTags('Autenticacao')
 @Controller('/login')
 @Public()
 export class AuthenticateController {
@@ -26,10 +21,9 @@ export class AuthenticateController {
 
   @ApiOperation({ summary: 'Realiza o login do usuário' })
   @ApiBody({ 
-    type: AuthenticateBodyDto,
     description: 'Credenciais de acesso do usuário',
     examples: {
-      exemplo: { value: { email: 'fernandopessoa@gmail.com', senha: '123' } }
+      exemplo: { value: { email: 'andre.schefao@ctjunior.com', senha: '123456' } }
     }
   })
   @ApiResponse({ status: 200, description: 'Autenticacao realizada com sucesso, retorna o token JWT' })

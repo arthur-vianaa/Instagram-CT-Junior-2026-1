@@ -4,6 +4,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  HttpCode,
   Post,
   UsePipes,
 } from '@nestjs/common'
@@ -11,6 +12,7 @@ import z from 'zod'
 import { RegisterUserUseCase } from '@/domain/application/use-cases/register-user'
 import { UserAlreadyExistsError } from '@/domain/application/use-cases/errors/user-already-exists-error'
 import { Public } from '@/infra/auth/public'
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 
 export const createAccountSchema = z
   .object({
@@ -22,6 +24,7 @@ export const createAccountSchema = z
 
 type CreateAccountBodySchema = z.infer<typeof createAccountSchema>
 
+@ApiTags('Registro')
 @Controller('/user')
 @Public()
 export class CreateAccountController {
@@ -30,13 +33,30 @@ export class CreateAccountController {
   ) { }
 
   @Post()
+  @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createAccountSchema))
+  @ApiOperation({ summary: 'Realiza o cadastro do usuario' }) 
+  @ApiBody({ 
+    description: 'Credenciais do usuario',
+    examples: {
+      exemplo: { 
+        value: { 
+          username: 'joao-subtil', 
+          profileImage: 'joao.jpeg', 
+          email: 'joao.subtil@ctjunior.com', 
+          senha: '123456' 
+        } 
+      }
+    }
+  })
+  @ApiResponse({ status: 201, description: 'Usuario cadastrado com sucesso' }) 
+  @ApiResponse({ status: 409, description: 'Conflito (e-mail ou nome ja utilizados)' }) 
   async handle(@Body() body: CreateAccountBodySchema) {
     const { username: name, profileImage, email, senha: password } = body
     const result = await this.createUser.execute({
       name,
       email,
-      profileImage: profileImage,
+      profileImage,
       password,
     })
 

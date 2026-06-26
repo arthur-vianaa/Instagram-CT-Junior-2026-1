@@ -5,22 +5,39 @@ import { PostPostUseCase } from "@/domain/application/use-cases/post-post";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/resource-not-found-error";
+import { ApiTags, ApiOperation, ApiBody, ApiResponse } from "@nestjs/swagger";
 
-const sendEmailBodySchema = z.object({
+const postPostBodySchema = z.object({
     description: z.string().optional(),
     foto: z.string(),
 })
 
-type SendEmailBodySchema = z.infer<typeof sendEmailBodySchema>
+type PostPostBodySchema = z.infer<typeof postPostBodySchema>
 
+@ApiTags('Postar um post')
 @Controller('/post')
 export class SendEmailController {
   constructor(private postPost: PostPostUseCase) { }
 
   @Post()
   @HttpCode(201)
+  @ApiOperation({ summary: 'Posta um novo post no banco de dados' }) 
+    @ApiBody({ 
+        description: 'Foto de Perfil Nova',
+        examples: {
+          exemplo: { 
+            value: { 
+              description: 'A CT Junior eh a 01!',
+              foto: 'foto-do-pocar.jpeg'
+            } 
+          }
+        }
+      })
+      @ApiResponse({ status: 201, description: 'Post feito com sucesso!' }) 
+      @ApiResponse({ status: 401, description: 'Usuario nao autenticado' }) 
+      
   async handle(
-    @Body() body: SendEmailBodySchema,
+    @Body(new ZodValidationPipe(postPostBodySchema)) body: PostPostBodySchema,
     @CurrentUser() user: TokenSchema,
   ) {
     const { description, foto: fotoLink } = body
