@@ -6,27 +6,27 @@ import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { WrongCredentialsError } from "@/domain/application/use-cases/errors/wrong-credentials-error";
 
-const editProfileImageBodySchema = z.object({
+const updateProfileImageBodySchema = z.object({
   profileImage: z.string(),
 })
 
-const bodyValidationPipe = new ZodValidationPipe(editProfileImageBodySchema)
+const bodyValidationPipe = new ZodValidationPipe(updateProfileImageBodySchema)
 
-type EditProfileImageBodySchema = z.infer<typeof editProfileImageBodySchema>
+type UpdateProfileImageBodySchema = z.infer<typeof updateProfileImageBodySchema>
 
-@Controller('/my-image')
-export class EditProfileImageController {
-  constructor(private editProfileImage: UpdateProfileImageUseCase) { }
+@Controller('/user')
+export class UpdateProfileImageController {
+  constructor(private updateProfileImage: UpdateProfileImageUseCase) { }
 
   @Patch()
   @HttpCode(204)
   async handle(
-    @Body(bodyValidationPipe) body: EditProfileImageBodySchema,
+    @Body(bodyValidationPipe) body: UpdateProfileImageBodySchema,
     @CurrentUser() user: TokenSchema,
   ) {
     const { profileImage } = body
     const userId = user.sub
-    const result = await this.editProfileImage.execute({
+    const result = await this.updateProfileImage.execute({
       userId,
       profileImage,
     })

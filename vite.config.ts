@@ -6,7 +6,8 @@ export default defineConfig({
   test: {
     globals: true,
     root: './',
-    exclude: ['**/node_modules/**', '**/dist/**', '**/dist-test/**'],
+    include:  ['src/**/*.spec.ts'],
+    exclude: ['**/*.e2e.spec.ts', '**/node_modules/**', '**/dist/**', '**/dist-test/**'],
   },
   plugins: [
     tsConfigPaths({ projects: ['./tsconfig.base.json'] }),

@@ -12,7 +12,7 @@
     "test/factories/**/*.ts",
     "test/cryptography/**/*.ts",
     "test/setup-e2e.ts"
-  ],
+, "src/infra/http/controllers/delete-post.controller.e2espec.ts"  ],
   "references": [
     { "path": "./tsconfig.build.json" }
   ]

@@ -14,10 +14,10 @@ import { Public } from '@/infra/auth/public'
 
 export const createAccountSchema = z
   .object({
-    name: z.string().nonempty(),
+    username: z.string().nonempty(),
     profileImage: z.string().optional(),
     email: z.email(),
-    password: z.string().min(6),
+    senha: z.string().min(6),
   })
 
 type CreateAccountBodySchema = z.infer<typeof createAccountSchema>
@@ -32,7 +32,7 @@ export class CreateAccountController {
   @Post()
   @UsePipes(new ZodValidationPipe(createAccountSchema))
   async handle(@Body() body: CreateAccountBodySchema) {
-    const { name, profileImage, email, password } = body
+    const { username: name, profileImage, email, senha: password } = body
     const result = await this.createUser.execute({
       name,
       email,

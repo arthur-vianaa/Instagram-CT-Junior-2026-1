@@ -35,6 +35,7 @@ export class PrismaPostsRepository implements PostsRepository {
     }
 
     return PostWithAuthor.create({
+      postId: new UniqueEntityID(post.id),
       data: post.data,
       description: post.description ?? undefined,
       authorId: new UniqueEntityID(post.author
@@ -54,6 +55,7 @@ export class PrismaPostsRepository implements PostsRepository {
     })
 
     return posts.map((post) => PostWithAuthor.create({
+      postId: new UniqueEntityID(post.id),
       data: post.data,
       description: post.description ?? undefined,
       authorId: new UniqueEntityID(post.author.id),
@@ -73,6 +75,7 @@ export class PrismaPostsRepository implements PostsRepository {
     })
 
     return posts.map((post) => PostWithAuthor.create({
+      postId: new UniqueEntityID(post.id),
       data: post.data,
       description: post.description ?? undefined,
       authorId: new UniqueEntityID(post.author.id),

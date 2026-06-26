@@ -1,13 +1,14 @@
+
 import { AppModule } from "@/infra/app.module"
 import { DataBaseModule } from "@/infra/database/database.module"
 import { PrismaService } from "@/infra/database/prisma/prisma.service"
 import { INestApplication } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
-import { Test } from "@nestjs/testing"
+import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { UserFactory } from "test/factories/make-user"
 
-describe('Edit User Name (E2E)', () => {
+describe('Post Post (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let userFactory: UserFactory
@@ -28,30 +29,36 @@ describe('Edit User Name (E2E)', () => {
     await app.init()
   })
 
-  test('[PATCH] /my-name', async () => {
+  test('[POST] /post', async () => {
     const user = await userFactory.makePrismaUser(
       {
-        profileImage: 'Old name',
+        email: "carlosdrummond@exemple.com",
       }
     )
 
-    const accessToken = jwt.sign({ sub: user.id.toString() })
+    await userFactory.makePrismaUser(
+      {
+        email: "claricelispector@exemple.com"
+      }
+    )
+
+    const access_token = jwt.sign({ sub: user.id.toString() })
 
     const response = await request(app.getHttpServer())
-      .patch('/my-name')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .post('/post')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
-        userName: 'Carlos Drummond',
+        foto: 'memorias-postumas-de-brasil-cubas.jpeg'
       })
 
-    expect(response.statusCode).toBe(204)
+    expect(response.statusCode).toBe(201)
 
-    const userOnDatabase = await prisma.user.findUnique({
+    const postOnDatabase = await prisma.post.findFirst({
       where: {
-        id: user.id.toString(),
+        fotoLink: 'memorias-postumas-de-brasil-cubas.jpeg',
       },
     })
 
-    expect(userOnDatabase?.name).toBe('Carlos Drummond')
+    expect(postOnDatabase?.authorId).toBe(user.id.toString())
   })
 })

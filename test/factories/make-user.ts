@@ -24,6 +24,9 @@ export function makeUser(
 
 @Injectable()
 export class UserFactory {
+  makePrismaPost(arg0: {}) {
+    throw new Error("Method not implemented.")
+  }
   constructor(private prisma: PrismaService) { }
 
   async makePrismaUser(data: Partial<UserProps> = {}): Promise<User> {

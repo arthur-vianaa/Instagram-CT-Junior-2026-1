@@ -1,60 +1,55 @@
 import { AppModule } from "@/infra/app.module"
-import { PrismaService } from "@/infra/database/prisma/prisma.service"
 import { DataBaseModule } from "@/infra/database/database.module"
+import { PrismaService } from "@/infra/database/prisma/prisma.service"
 import { INestApplication } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { Test } from "@nestjs/testing"
-import request from 'supertest'
-import { EmailFactory } from "test/factories/make-post"
 import { UserFactory } from "test/factories/make-user"
+import request from 'supertest'
 
-describe('Delete Email (E2E)', () => {
+describe('Update Profile Image (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let userFactory: UserFactory
-  let emailFactory: EmailFactory
   let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DataBaseModule],
-      providers: [UserFactory, EmailFactory],
+      providers: [UserFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     prisma = moduleRef.get(PrismaService)
     userFactory = moduleRef.get(UserFactory)
-    emailFactory = moduleRef.get(EmailFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[DELETE] /email/:id', async () => {
-    const user = await userFactory.makePrismaUser()
+  test('[PATCH] /user', async () => {
+    const user = await userFactory.makePrismaUser({
+      profileImage: 'Old Profile Image',
+    })
 
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
-    const email = await emailFactory.makePrismaEmail({
-      senderId: user.id,
-      receiverId: user.id,
-    })
-
-    const emailId = email.id.toString()
-
     const response = await request(app.getHttpServer())
-      .delete(`/email/${emailId}`)
+      .patch('/user')
       .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        profileImage: 'New Profile Image',
+      })
 
-    expect(response.statusCode).toBe(200)
+    expect(response.statusCode).toBe(204)
 
-    const emailOnDatabase = await prisma.email.findUnique({
+    const userOnDatabase = await prisma.user.findUnique({
       where: {
-        id: emailId,
+        id: user.id.toString(),
       },
     })
 
-    expect(emailOnDatabase).toBeNull()
+    expect(userOnDatabase?.profileImage).toBe('New Profile Image')
   })
 })

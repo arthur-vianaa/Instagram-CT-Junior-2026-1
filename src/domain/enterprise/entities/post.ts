@@ -44,7 +44,7 @@ export class Post extends Entity<PostProps> {
     return post
   }
 
-  changeDescription(description: string) {
+  changeDescription(description: string | null) {
     this.props.description = description
   }
 }

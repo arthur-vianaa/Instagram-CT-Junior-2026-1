@@ -6,7 +6,7 @@ import { hash } from "argon2"
 import { UserFactory } from "test/factories/make-user"
 import request from 'supertest'
 
-describe('Authenticate (E2E', () => {
+describe('Authenticate (E2E)', () => {
   let app: INestApplication
   let userFactory: UserFactory
 
@@ -31,7 +31,7 @@ describe('Authenticate (E2E', () => {
 
     const response = await request(app.getHttpServer()).post('/login').send({
       email: 'fernandopessoa@exemple.com',
-      password: '123456',
+      senha: '123456',
     })
 
     expect(response.statusCode).toBe(200)

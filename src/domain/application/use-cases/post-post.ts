@@ -8,8 +8,9 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface PostPostUseCaseRequest {
   authorId: string
-  description: string
+  description?: string
   fotoLink: string
+  data: Date
 }
 
 type PostPostUseCaseResponse = Either<
@@ -39,7 +40,7 @@ export class PostPostUseCase {
 
     const post = Post.create({
       authorId: new UniqueEntityID(authorId),
-      description,
+      description: description ?? null,
       fotoLink,
       data: new Date(),
     })

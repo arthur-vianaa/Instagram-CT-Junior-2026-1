@@ -3,11 +3,12 @@ import { ResourceNotFoundError } from "./errors/resource-not-found-error"
 import { Either, left, right } from "@/core/either"
 import { Injectable } from "@nestjs/common"
 import { NotAllowedError } from "@/core/errors/errors/not-allowed-error"
+import { PostsRepository } from "../repositories/posts-repository"
 
 interface EditPostDescriptionUseCaseRequest {
     authorId: string
     postId: string
-    description: string
+    description: string | null
 }
 
 type EditPostDescriptionUseCaseResponse = Either<
@@ -19,7 +20,7 @@ type EditPostDescriptionUseCaseResponse = Either<
 
 @Injectable()
 export class EditPostDescriptionUseCase {
-    constructor(private postsRepository: any) { }
+    constructor(private postsRepository: PostsRepository) { }
 
     async execute({
         authorId,

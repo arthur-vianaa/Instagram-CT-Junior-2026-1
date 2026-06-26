@@ -1,22 +1,21 @@
 import z from "zod";
 import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
 import { BadRequestException, Body, Controller, HttpCode, NotFoundException, Post, UnauthorizedException } from "@nestjs/common";
-import { SendEmailUseCase } from "@/domain/application/use-cases/post-post";
+import { PostPostUseCase } from "@/domain/application/use-cases/post-post";
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/resource-not-found-error";
 
 const sendEmailBodySchema = z.object({
-  title: z.string().nonempty(),
-  emailDeDestinatario: z.email(),
-  content: z.string(),
+    description: z.string().optional(),
+    foto: z.string(),
 })
 
 type SendEmailBodySchema = z.infer<typeof sendEmailBodySchema>
 
-@Controller('/email')
+@Controller('/post')
 export class SendEmailController {
-  constructor(private sendEmail: SendEmailUseCase) { }
+  constructor(private postPost: PostPostUseCase) { }
 
   @Post()
   @HttpCode(201)
@@ -24,14 +23,14 @@ export class SendEmailController {
     @Body() body: SendEmailBodySchema,
     @CurrentUser() user: TokenSchema,
   ) {
-    const { title, emailDeDestinatario, content } = body
-    const senderId = user.sub
+    const { description, foto: fotoLink } = body
+    const authorId = user.sub
 
-    const result = await this.sendEmail.execute({
-      title,
-      content,
-      senderId,
-      receiverEmail: emailDeDestinatario,
+    const result = await this.postPost.execute({
+      authorId,
+      description,
+      fotoLink,
+      data: new Date(),
     })
 
     if (result.isLeft()) {
