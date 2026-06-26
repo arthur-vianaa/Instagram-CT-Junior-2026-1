@@ -3,9 +3,10 @@ import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { Controller, Get, HttpCode } from "@nestjs/common";
 import { PostDetailsPresenter } from "../presenters/post-presenter";
 import { FetchOwnPostsUseCase } from "@/domain/application/use-cases/fetch-own-posts";
-import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
 
-@ApiTags('Ver os proprios posts')
+@ApiTags('Post')
+@ApiBearerAuth('jwt')
 @Controller('/my-posts')
 export class FetchOwnPostsController {
   constructor(
@@ -28,10 +29,11 @@ export class FetchOwnPostsController {
             items: {
               type: 'object',
               properties: {
-                authorId: { type: 'string', example: '12f48310-2e8a-4992-b916-aae5bcd3aff1' },
-                description: { type: 'string', example: 'A CT Junior eh a 01!' },
-                fotoLink: { type: 'string', example: 'lindissima-ct-junior.jpeg' },
-                data: { type: 'string', example: '2026-06-26T16:45:00.000Z' },
+                username: { type: 'string', example: 'Joao Subtil' },
+                  post_photo: { type: 'string', example: 'lindissima-ct-junior.jpeg'},
+                  description: { type: 'string', example: 'A CT Junior eh a 01!' },
+                  user_photo: { type: 'string', example: 'joao.jpeg' },
+                  post_id: {type: 'string', example: "0227b724-8fad-4d6d-98d5-25a01de6b6b6"}
               }
             }
           }

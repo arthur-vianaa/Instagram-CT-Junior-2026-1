@@ -13,6 +13,7 @@ import { RegisterUserUseCase } from '@/domain/application/use-cases/register-use
 import { UserAlreadyExistsError } from '@/domain/application/use-cases/errors/user-already-exists-error'
 import { Public } from '@/infra/auth/public'
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { RegisterUserBodyDto } from '../dto/register.dto'
 
 export const createAccountSchema = z
   .object({
@@ -24,7 +25,7 @@ export const createAccountSchema = z
 
 type CreateAccountBodySchema = z.infer<typeof createAccountSchema>
 
-@ApiTags('Registro')
+@ApiTags('Usuario')
 @Controller('/user')
 @Public()
 export class CreateAccountController {
@@ -37,17 +38,8 @@ export class CreateAccountController {
   @UsePipes(new ZodValidationPipe(createAccountSchema))
   @ApiOperation({ summary: 'Realiza o cadastro do usuario' }) 
   @ApiBody({ 
-    description: 'Credenciais do usuario',
-    examples: {
-      exemplo: { 
-        value: { 
-          username: 'joao-subtil', 
-          profileImage: 'joao.jpeg', 
-          email: 'joao.subtil@ctjunior.com', 
-          senha: '123456' 
-        } 
-      }
-    }
+    type: RegisterUserBodyDto,
+    description: 'Dados necessários para o cadastro do usuário'
   })
   @ApiResponse({ status: 201, description: 'Usuario cadastrado com sucesso' }) 
   @ApiResponse({ status: 409, description: 'Conflito (e-mail ou nome ja utilizados)' }) 

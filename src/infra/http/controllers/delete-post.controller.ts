@@ -4,9 +4,10 @@ import { ResourceNotFoundError } from "@/domain/application/use-cases/errors/res
 import { CurrentUser } from "@/infra/auth/current-user-decorator";
 import type { TokenSchema } from "@/infra/auth/jwt.strategy";
 import { BadRequestException, Controller, Delete, HttpCode, NotFoundException, Param, UnauthorizedException } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBasicAuth } from "@nestjs/swagger";
 
-@ApiTags('Deletar um post')
+@ApiTags('Post')
+@ApiBearerAuth('jwt')
 @Controller('/post/:id')
 export class DeletePostController {
   constructor(private deletePost: DeletePostUseCase) { }
@@ -14,7 +15,7 @@ export class DeletePostController {
   @Delete()
   @HttpCode(200)
   @ApiOperation({ summary: 'Deleta um post' }) 
-  @ApiResponse({ status: 200, description: 'Foto atualizada com sucesso' }) 
+  @ApiResponse({ status: 200, description: 'Deletado com sucesso.' }) 
   @ApiResponse({ status: 401, description: 'Nao permitido (tentando trocar de outro user / sem autenticacao)' }) 
   @ApiResponse({ status: 404, description: 'Post nao encontrado!' }) 
       

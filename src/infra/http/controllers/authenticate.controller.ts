@@ -5,6 +5,7 @@ import { ZodValidationPipe } from "../pipes/zod-validation-pipe";
 import { AuthenticateUserUseCase } from "@/domain/application/use-cases/authenticate-user";
 import { WrongCredentialsError } from "@/domain/application/use-cases/errors/wrong-credentials-error";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { AuthenticateUserBodyDto } from "../dto/auth.dto";
 
 const authenticateBodySchema = z.object({
   email: z.email(),
@@ -13,7 +14,7 @@ const authenticateBodySchema = z.object({
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
-@ApiTags('Autenticacao')
+@ApiTags('Usuario')
 @Controller('/login')
 @Public()
 export class AuthenticateController {
@@ -21,10 +22,8 @@ export class AuthenticateController {
 
   @ApiOperation({ summary: 'Realiza o login do usuário' })
   @ApiBody({ 
-    description: 'Credenciais de acesso do usuário',
-    examples: {
-      exemplo: { value: { email: 'andre.schefao@ctjunior.com', senha: '123456' } }
-    }
+    type: AuthenticateUserBodyDto,
+    description: 'Credenciais obrigatorias para login'
   })
   @ApiResponse({ status: 200, description: 'Autenticacao realizada com sucesso, retorna o token JWT' })
   @ApiResponse({ status: 401, description: 'Credenciais (email/senha) incorretos' })

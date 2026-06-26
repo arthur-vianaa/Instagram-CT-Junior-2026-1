@@ -22,6 +22,7 @@ async function bootstrap() {
       },
       'jwt',
     )
+    .addBasicAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, config)
