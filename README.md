@@ -1,7 +1,7 @@
-# Email da CT Junior - Projeto Piloto Back-End
+# Instagram da CT Junior - Projeto Piloto Back-End
 
-Este projeto, consiste no desenvolvimento do back-end para a aplicação "Email da CT Junior". O objetivo é simular um sistema de e-mails.
-A API é responsável por gerenciar usuários, autenticação, envio, recebimento e visualização de e-mails.
+Este projeto, consiste no desenvolvimento do back-end para a aplicação "Instagram da CT Junior". O objetivo é simular um sistema de e-mails.
+A API é responsável por gerenciar usuários, autenticação, envio, recebimento e visualização de postagens.
 
 ## Arquitetura e Conceitos
 
@@ -11,7 +11,7 @@ A API é responsável por gerenciar usuários, autenticação, envio, recebiment
 
   * domain: Representa o coração da aplicação.
 
-    *  enterprise/entities: Contém as entidades de domínio (User, Email) e os Value Objects (EmailWithSenderReceiverNames).
+    *  enterprise/entities: Contém as entidades de domínio (User, Post) e os Value Objects (PostWithAuthorNameProps).
 
     *  application/use-cases: Orquestra as regras de negócio, recebendo dados da camada de infraestrutura e utilizando os repositórios para persistência.
 
@@ -37,7 +37,7 @@ A API é responsável por gerenciar usuários, autenticação, envio, recebiment
 
   - Zod: Uma biblioteca de declaração e validação de esquemas com foco em TypeScript. É usada para garantir a integridade e o formato correto dos dados recebidos.
 
-  - Bcrypt: Empregado para o hashing seguro de senhas. Antes de salvar a senha de um usuário no banco de dados.
+  - Argon2: Empregado para o hashing seguro de senhas. Antes de salvar a senha de um usuário no banco de dados.
 
   - NestJS JWT e Passport: Módulos do NestJS que facilitam a implementação de autenticação baseada em JSON Web Tokens (JWT). O sistema utiliza um par de chaves assimétricas (RS256) para assinar e verificar os tokens, garantindo que apenas usuários autenticados possam acessar as rotas protegidas.
 
@@ -50,10 +50,10 @@ A API é responsável por gerenciar usuários, autenticação, envio, recebiment
   | --------------|---------|---------------------------------------------------------------------|------------------
   | /user	        |POST	    |Cria um novo usuário.	                                              |Pública
   | /login	      |POST	    |Autentica um usuário e retorna um access_token.	                    |Pública
-  | /my-emails	  |GET	    |Retorna a lista de e-mails recebidos pelo usuário autenticado.	      |Autenticada
-  | /sent-emails  |GET	    |Retorna a lista de e-mails enviados pelo usuário autenticado.	      |Autenticada
-  | /email	      |POST	    |Envia um novo e-mail para um destinatário.	                          |Autenticada
-  | /email/:id	  |GET	    |Busca os detalhes de um e-mail específico pelo seu ID.	              |Autenticada
-  | /email/:id	  |DELETE	  |Deleta um e-mail enviado, caso ainda não tenha sido lido.	          |Autenticada
-  | /my-name	    |PATCH	  |Edita o nome do usuário autenticado.	                                |Autenticada
-  | /my-image	    |PATCH	  |Edita a imagem de perfil do usuário autenticado.	                    |Autenticada
+  | /post	        |POST  	  |Cria uma nova postagem.             	                                |Autenticada
+  | /post	        |PATCH	  |Modifica a description de um post já enviado.	                      |Autenticada
+  | /my-posts	    |GET      |Retorna a lista de posts enviados pelo usuário autenticado.	        |Autenticada
+  | /posts        |GET	    |Retorna a lista de posts enviados por todos os usuários.     	      |Autenticada
+  | /post/:id	    |DELETE	  |Deleta um post do usuário autenticado.                   	          |Autenticada
+  | /user	        |PATCH	  |Edita a imagem de perfil do usuário autenticado.	                    |Autenticada
+  | /profile      |GET      |Retorna os dados do usuário a partir de seu ID.                      |Autenticada

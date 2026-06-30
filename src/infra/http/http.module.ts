@@ -17,6 +17,8 @@ import { FetchAllRecentPostsUseCase } from "@/domain/application/use-cases/fetch
 import { FetchOwnPostsController } from "./controllers/fetch-own-posts.controller";
 import { FetchOwnPostsUseCase } from "@/domain/application/use-cases/fetch-own-posts";
 import { EditPostDescriptionUseCase } from "@/domain/application/use-cases/edit-post-description";
+import { GetUserProfileUseCase } from "@/domain/application/use-cases/get-user-profile";
+import { GetUserProfileController } from "./controllers/get-user-profile.controller";
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import { EditPostDescriptionUseCase } from "@/domain/application/use-cases/edit-
     DeletePostController,
     FetchAllRecentPostsController,
     FetchOwnPostsController,
+    GetUserProfileController,
   ],
   providers: [
     RegisterUserUseCase,
@@ -42,6 +45,7 @@ import { EditPostDescriptionUseCase } from "@/domain/application/use-cases/edit-
     FetchOwnPostsUseCase,
     FetchAllRecentPostsUseCase,
     EditPostDescriptionUseCase,
+    GetUserProfileUseCase,
   ]
 })
 export class HTTPModule { }
